@@ -1,0 +1,62 @@
+﻿@page
+@using Safester.CryptoLibrary.Api
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="row">
+    <div class="container">
+        <div class="col-md-12">
+            <h2>Application uses</h2>
+            <ul>
+                <li>Compile all fields</li>
+                <li>Get your certificate</li>
+            </ul>
+
+            <form asp-action="onPost">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Identity</label>
+                    <input class="form-control" name="Identity" type="text" value="@ViewData["Identity"]" />
+                </div>
+                <div class="form-group">
+                    <label>Passphrase</label>
+                    <input class="form-control" name="Passphrase" type="text" value="@ViewData["Passphrase"]" />
+                </div>
+                <div class="form-group">
+                    <label>Algorithm</label>
+                    <select class="form-control" name="Algorithm">
+                        <option value="@PublicKeyAlgorithm.DSA_ELGAMAL">DSA_ELGAMAL</option>
+                        <option value="@PublicKeyAlgorithm.RSA">RSA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Length</label>
+                    <select class="form-control" name="Length">
+                        <option value="@((int)PublicKeyLength.BITS_1024)">BITS 1024</option>
+                        <option value="@((int)PublicKeyLength.BITS_2048)">BITS 2048</option>
+                        <option value="@((int)PublicKeyLength.BITS_3072)">BITS 3072</option>
+                        <option value="@((int)PublicKeyLength.BITS_4096)">BITS 4096</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-lg btn-block btn-primary">Generate</button>
+            </form>
+
+
+
+
+        </div>
+        <div class="col-md-12 text-center">
+            <h3>Identity @ViewData["Identity"]</h3>
+            <h3>Passphrase @ViewData["Passphrase"]</h3>
+            <h5>@ViewData["Algorithm"] - @ViewData["Length"]</h5>
+        </div>
+        <div class="col-md-6">
+            <textarea rows="30" class="form-control">@ViewData["PrivateKey"]</textarea>
+        </div>
+        <div class="col-md-6">
+            <textarea rows="30" class="form-control">@ViewData["PublicKey"]</textarea>
+        </div>
+    </div>
+</div>
